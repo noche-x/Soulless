@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "PSP",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "lib/Stardust-Engine/include",
+                "/usr/local/pspdev/psp/sdk/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/local/pspdev/bin/psp-g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x86",
+            "compilerArgs": []
+        }
+    ],
+    "version": 4
+}

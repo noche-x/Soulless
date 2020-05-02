@@ -1,0 +1,40 @@
+fucking game
+
+game for game jam
+
+"Your life is currency"
+
+===================
+
+Title: Soulless
+
+Game:
+	- Sell your soul to the devils/mythologic gods for money.
+
+	+ Every level is a dungeon, basically a dungeon crawler.
+	+ At the end of every level there is a boss, which is a devil/mythologic god.
+	+ Every devil/mythologic god has their own plot, first one asks you for your soul cause it sees you valuable, 
+		second one you try to sell your soul... but the thing is you already sold your soul so they realize that 
+		because you are soulles or they get informed.
+	+ End game devil is the first devil you sold your soul to so you are trying to get back your soul.
+
+
+Style: 
+	8bit, pixel
+
+Main Screen:
+	|---------------------------------------|
+	|					|
+	|		soulless		|
+	|					|
+	|					|
+	|	play				|
+	|	options				|
+	|	credits				|
+	|	exit				|
+	|					|
+	|_______________________________________|
+
+
+	art in the background
+
