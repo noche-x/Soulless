@@ -1,5 +1,7 @@
 TARGET = Soulless
 OBJS = src/main.o \
+src/state_manager.o \
+src/states/intro_state.o \
 
 INCDIR = $(PSPPATH)/include lib/Stardust-Engine/include lib/Stardust-Engine/libs/include 
 
@@ -19,7 +21,7 @@ LIBS    = -lstardust -ljson -lintraFont -lpng -lpspmath -lpspwlan -lpspnet_adhoc
 # LIBS = -lpspaudiolib -lpspaudio -lmikmod -lpspaudiocodec -lpng -lz -lpspgum -lpspgu -lstdc++ -lpsprtc -lpspctrl -lm -lpspvfpu -lpspsdk -lpsppower -lpsphttp
 
 EXTRA_TARGETS = EBOOT.PBP
-#PSP_EBOOT_ICON= ICON0.png
+PSP_EBOOT_ICON= ICON0.png
 PSP_EBOOT_TITLE = Soulless
 
 PSPSDK=$(shell psp-config --pspsdk-path)
