@@ -19,7 +19,7 @@ PSP_HEAP_SIZE_KB(-1024);
 #include <Graphics/UI/UIButton.h>
 
 #include "state_manager.h"
-#include "states/intro_state.h"
+#include "states/main_menu_state.h"
 
 using namespace Stardust;
 
@@ -28,10 +28,10 @@ int main() {
 
     state_manager g_state_manager;
     
-    intro_state* intro_state_instance = new intro_state();
-    intro_state_instance->create();
+    main_menu_state* main_menu_state_instance = new main_menu_state();
+    main_menu_state_instance->create();
 
-    g_state_manager.set_state(intro_state_instance);
+    g_state_manager.set_state(main_menu_state_instance);
 
     Graphics::g_RenderCore.SetClearColor(160, 160, 160, 255);
     

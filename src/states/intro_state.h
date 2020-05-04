@@ -1,27 +1,16 @@
+#pragma once
+
 #include "state.h"
 
 class intro_state : public state
 {
 private:
     /* data */
-    Graphics::Texture* non_selected_button_texture;
-    Graphics::Texture* selected_button_texture;
+    Graphics::Texture* noche_texture;
+    Graphics::Texture* soulless_texture;
 
-    Graphics::UI::FontStyle style;
-
-    Graphics::UI::UIText* title_text;
-    
-    Graphics::UI::UIText* play_text;
-    Graphics::UI::UIButton* play_button;
-
-    Graphics::UI::UIText* options_text;
-    Graphics::UI::UIButton* options_button;
-    
-    Graphics::UI::UIText* credits_text;
-    Graphics::UI::UIButton* credits_button;
-
-    Graphics::UI::UIText* exit_text;
-    Graphics::UI::UIButton* exit_button;
+    Graphics::Render2D::Sprite2* noche_sprite;
+    Graphics::Render2D::Sprite2* soulless_sprite;
 public:
     void create();
     void destroy();
