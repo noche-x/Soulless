@@ -2,6 +2,8 @@ TARGET = Soulless
 OBJS = src/main.o \
 src/state_manager.o \
 src/states/main_menu_state.o \
+src/states/intro_state.o \
+src/states/game_state.o \
 src/menu_system/menu_system.o \
 
 INCDIR = $(PSPPATH)/include lib/Stardust-Engine/include lib/Stardust-Engine/libs/include 

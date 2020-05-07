@@ -1,11 +1,14 @@
 #pragma once
 
 #include "state.h"
+#include <Utilities/Timer.h>
 
 class intro_state : public state
 {
 private:
     /* data */
+    Stardust::Utilities::Timer* m_timer;
+
     Graphics::Texture* noche_texture;
     Graphics::Texture* soulless_texture;
 
@@ -17,3 +20,5 @@ public:
 
     void render();
 };
+
+extern intro_state* intro_state_instance;

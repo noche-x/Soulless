@@ -1,3 +1,5 @@
+#pragma once
+
 #include <Utilities/Input.h>
 #include <Graphics/UI/UIButton.h>
 #include <map>

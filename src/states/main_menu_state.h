@@ -33,3 +33,5 @@ public:
 
     void render();
 };
+
+extern main_menu_state* main_menu_state_instance;

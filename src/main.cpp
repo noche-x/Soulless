@@ -19,19 +19,17 @@ PSP_HEAP_SIZE_KB(-1024);
 #include <Graphics/UI/UIButton.h>
 
 #include "state_manager.h"
+#include "states/intro_state.h"
 #include "states/main_menu_state.h"
+#include "states/game_state.h"
 
 using namespace Stardust;
 
 int main() {
     Platform::initPlatform("Soulless");
-
-    state_manager g_state_manager;
     
-    main_menu_state* main_menu_state_instance = new main_menu_state();
-    main_menu_state_instance->create();
-
-    g_state_manager.set_state(main_menu_state_instance);
+    g_state_manager.set_state(game_state_instance);
+    g_state_manager.set_next_state(main_menu_state_instance);
 
     Graphics::g_RenderCore.SetClearColor(160, 160, 160, 255);
     
@@ -40,7 +38,7 @@ int main() {
         Graphics::g_RenderCore.BeginCommands();
         Graphics::g_RenderCore.Clear();
 
-        g_state_manager.render_state();  
+        g_state_manager.render_state();          
 
         Platform::platformUpdate();
         Graphics::g_RenderCore.EndCommands();

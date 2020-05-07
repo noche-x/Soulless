@@ -15,12 +15,19 @@ private:
     /* data */
     std::vector<state*> m_states;
     state* m_active_state;
+    state* m_next_state;
 public:
     state_manager();
 
     void set_state(state* state);    
 
+    void set_next_state(state* state);
+
     void render_state();
+
+    void switch_to_next_state();
 
     ~state_manager();
 };
+
+extern state_manager g_state_manager;

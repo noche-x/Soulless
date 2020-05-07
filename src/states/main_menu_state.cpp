@@ -1,5 +1,8 @@
 #include "main_menu_state.h"
 #include "../menu_system/menu_system.h"
+#include <Utilities/Logger.h>
+
+main_menu_state* main_menu_state_instance = new main_menu_state();
 
 void main_menu_state::create() {
     non_selected_button_texture = Graphics::TextureUtil::LoadPng("assets/non-selected.png");
@@ -23,6 +26,11 @@ void main_menu_state::create() {
 
     exit_text = new Graphics::UI::UIText({ 70, 70 }, "exit");
     exit_button = new Graphics::UI::UIButton({156, 100}, {120, 40}, non_selected_button_texture, selected_button_texture, exit_text);
+
+    play_button->setTextRelative({0, -3});
+    options_button->setTextRelative({0, -3});
+    credits_button->setTextRelative({0, -3});
+    exit_button->setTextRelative({0, -3});
 
     play_button->setPosition({156, 110});
     options_button->setPosition({156, 150});
@@ -53,6 +61,9 @@ void main_menu_state::destroy() {
 }
 
 void main_menu_state::render() {
+	if (ghost_sprite == NULL || logo_sprite == NULL)
+        return;
+
     ghost_sprite->draw();
     logo_sprite->draw();
     g_menu_system.update();
