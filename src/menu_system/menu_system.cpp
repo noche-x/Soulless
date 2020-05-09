@@ -26,11 +26,15 @@ void menu_system::menu_right(bool held, float strength) {
 }
 
 void menu_system::menu_select(bool held, float strength) {
-
+    get().buttons[get().selected_button]->click();
 }
 
 void menu_system::menu_exit(bool held, float strength) {
 
+}
+
+void menu_system::set_button_action(int i, Stardust::Graphics::UI::ClickAction act) {
+    get().buttons[i]->setClickAction(act);
 }
 
 void menu_system::update() {
@@ -41,16 +45,16 @@ void menu_system::update() {
 
 
     for (int i = 1; i <= this->button_count; i++) {
-        buttons[i]->setUnselected();
+        get().buttons[i]->setUnselected();
         if (i == get().selected_button)
-            buttons[i]->setSelected();
-        buttons[i]->draw();        
+            get().buttons[i]->setSelected();
+        get().buttons[i]->draw();        
     }
 }
 
 void menu_system::add_button(Stardust::Graphics::UI::UIButton* button) {
     this->button_count++;
-    buttons.emplace(this->button_count, button);
+    get().buttons.emplace(this->button_count, button);
 }
 
 void menu_system::set_default_key_set() {
@@ -70,6 +74,7 @@ menu_system::menu_system() {
     this->selected_button = 1;
     this->set_default_key_set();
     this->buttons = {};
+    get().buttons = {};
 
     Stardust::Utilities::addActionHandler("menu_up", this->menu_up);
     Stardust::Utilities::addActionHandler("menu_down", this->menu_down);

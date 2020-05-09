@@ -28,7 +28,7 @@ using namespace Stardust;
 int main() {
     Platform::initPlatform("Soulless");
     
-    g_state_manager.set_state(game_state_instance);
+    g_state_manager.set_state(intro_state_instance);
     g_state_manager.set_next_state(main_menu_state_instance);
 
     Graphics::g_RenderCore.SetClearColor(160, 160, 160, 255);
@@ -37,6 +37,9 @@ int main() {
     while (true) {
         Graphics::g_RenderCore.BeginCommands();
         Graphics::g_RenderCore.Clear();
+
+        if (g_state_manager.get_state() == main_menu_state_instance)
+            g_state_manager.set_next_state(game_state_instance);
 
         g_state_manager.render_state();          
 

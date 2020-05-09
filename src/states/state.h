@@ -12,6 +12,7 @@ class state
 private:
     /* data */
     state* m_next_state;
+    bool m_changing = false;
 public:
     virtual void create() = 0;
     virtual void destroy() = 0;

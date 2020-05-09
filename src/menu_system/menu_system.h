@@ -40,7 +40,7 @@ public:
 
     void set_key_set(key_set keys);
     void set_default_key_set();
-
+    void set_button_action(int i, Stardust::Graphics::UI::ClickAction act);
     void add_button(Stardust::Graphics::UI::UIButton *button);
 
     void update();

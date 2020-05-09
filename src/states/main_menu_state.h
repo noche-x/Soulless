@@ -18,9 +18,6 @@ private:
     
     Graphics::UI::UIText* play_text;
     Graphics::UI::UIButton* play_button;
-
-    Graphics::UI::UIText* options_text;
-    Graphics::UI::UIButton* options_button;
     
     Graphics::UI::UIText* credits_text;
     Graphics::UI::UIButton* credits_button;

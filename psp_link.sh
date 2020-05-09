@@ -1,0 +1,1 @@
+sudo /usr/local/pspdev/bin/usbhostfs_pc > /dev/null ; /usr/local/pspdev/bin/pspsh

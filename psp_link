@@ -1,7 +1,0 @@
-output=$(sudo /usr/local/pspdev/bin/usbhostfs_pc ; /usr/local/pspdev/bin/pspsh > /dev/null)
-
-if grep -q $output error &>/dev/null
-then
-	b=$(calc $epc-$mod)
-	/usr/local/pspdev/bin/psp-addr2line -e Soulless.elf b
-fi

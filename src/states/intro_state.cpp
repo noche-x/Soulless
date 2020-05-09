@@ -3,58 +3,104 @@
 #include "../state_manager.h"
 #include <Utilities/Logger.h>
 #include <iomanip>
+#include <algorithm>
 
-intro_state* intro_state_instance = new intro_state();
+intro_state *intro_state_instance = new intro_state();
 
-void intro_state::create() {
-	m_timer = new Stardust::Utilities::Timer();
-	m_timer->reset();
+std::string noche_text = "developed by noche";
+std::string noche_text_o = noche_text;
 
-    noche_texture = Graphics::TextureUtil::LoadPng("assets/noche.png");
-    soulless_texture = Graphics::TextureUtil::LoadPng("assets/soulless.png");
-    
-	noche_sprite = new Graphics::Render2D::Sprite2(noche_texture, {212, 320});
-	noche_sprite->position(400, 200);
-	soulless_sprite = new Graphics::Render2D::Sprite2(soulless_texture, {231, 47});
-	soulless_sprite->position(240, 43);
+void intro_state::create()
+{
+    srand(time(NULL));
+    m_timer = new Stardust::Utilities::Timer();
+    anim_timer = new Stardust::Utilities::Timer();
+    m_timer->reset();
+    anim_timer->reset();
+
+    soulless_texture = Graphics::TextureUtil::LoadPng("assets/noche.png");
+
+    soulless_sprite = new Graphics::Render2D::Sprite2(soulless_texture, {231, 47});
+    soulless_sprite->position(240, 43);
+
+    m_changing = false;
+    noche_text_anim = new Graphics::UI::UIText({ 230, 200 }, "");
 }
 
-void intro_state::destroy() {
-    delete noche_texture;
-    delete soulless_texture;
+void intro_state::destroy()
+{
+    delete m_timer;
+    delete anim_timer;
 
-    delete noche_sprite;
+    delete soulless_texture;
+    //delete noche_text_anim;
+
     delete soulless_sprite;
 }
 
-int color = 0xFF000000;
-template <typename T>
-inline T lerp(T v0, T v1, T t) {
-    return (1-t)*v0 + t*v1;
+double easeOutCubic(double t)
+{
+    return 1 + (--t) * t * t;
 }
 
-void intro_state::render() {
-	if (noche_sprite == NULL || soulless_sprite == NULL)
+double easeInOutExpo(double t)
+{
+    if (t < 0.5)
+    {
+        return (pow(2, 16 * t) - 1) / 510;
+    }
+    else
+    {
+        return 1 - 0.5 * pow(2, -16 * (t - 0.5));
+    }
+}
+
+int alpha = 1;
+float scale = 0.2f;
+bool once = false;
+
+void intro_state::render()
+{
+    if (soulless_texture == NULL || soulless_sprite == NULL)
         return;
-    
+
+    if (m_changing && !once) {
+        g_state_manager.switch_to_next_state();
+        once = true;
+        return;
+    }
+    else if (m_changing && once)   
+        return;
+
+
+    anim_timer->deltaTime();
     m_timer->deltaTime();
 
-    lerp(0x00000000, color, 0x01000000);
-    
-    std::stringstream stream;
-    stream << "0x" 
-        << std::setfill ('0') << std::setw(sizeof(int)*2) 
-        << std::hex << color;
-    Utilities::app_Logger->log(stream.str());
+    alpha = easeInOutExpo(anim_timer->elapsed() / 2) * 255;
+    scale = easeOutCubic(anim_timer->elapsed() / 2) * 1.f;
 
-    // if (m_timer->elapsed() > 2.0f && m_timer->elapsed() < 4.0f)
-    // else if (m_timer->elapsed() > 4.0f && m_timer->elapsed() < 6.0f)
-    //     soulless_sprite->draw();
-    // else if (m_timer->elapsed() > 6.0f)
-    //     g_state_manager.switch_to_next_state();
+    if (anim_timer->elapsed() > 2.0f)
+    {
+        alpha = 255;
+        scale = 1.f;
+    }
+    if (m_timer->elapsed() > 2.4f && m_timer->elapsed() < 3.f)
+         std::random_shuffle(noche_text_o.begin(), noche_text_o.end());
+    if (m_timer->elapsed() > 3.f) {
+        m_changing = true;
+    }
 
-        noche_sprite->setColor(color);
-    noche_sprite->draw();
 
-    g_menu_system.update();
+    soulless_sprite->scale(scale, scale);
+    soulless_sprite->setColor(0, 0, 0, alpha);
+    soulless_sprite->draw();
+
+    noche_text_anim->setContent(noche_text_o);
+    Graphics::UI::FontStyle f;
+	f.color = GU_RGBA(0, 0, 0, alpha);
+	f.size = scale;
+	f.options = INTRAFONT_ALIGN_CENTER;
+
+    noche_text_anim->setOptions(f);
+    noche_text_anim->draw();
 }
