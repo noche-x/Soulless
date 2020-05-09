@@ -12,6 +12,7 @@ std::string noche_text_o = noche_text;
 
 void intro_state::create()
 {
+    g_menu_system.~menu_system();
     srand(time(NULL));
     m_timer = new Stardust::Utilities::Timer();
     anim_timer = new Stardust::Utilities::Timer();
@@ -58,6 +59,7 @@ double easeInOutExpo(double t)
 int alpha = 1;
 float scale = 0.2f;
 bool once = false;
+bool skip = false;
 
 void intro_state::render()
 {
@@ -71,6 +73,10 @@ void intro_state::render()
     }
     else if (m_changing && once)   
         return;
+    else if (skip) {
+        g_state_manager.switch_to_next_state();
+        return;
+    }
 
 
     anim_timer->deltaTime();
@@ -90,6 +96,8 @@ void intro_state::render()
         m_changing = true;
     }
 
+    if (Utilities::KeyPressed(PSP_CTRL_CROSS))
+        skip = true;
 
     soulless_sprite->scale(scale, scale);
     soulless_sprite->setColor(0, 0, 0, alpha);

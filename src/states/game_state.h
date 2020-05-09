@@ -5,6 +5,7 @@
 #include <Graphics/2D/Tilemap.h>
 #include <Graphics/2D/SpriteBase.h>
 #include <Graphics/2D/TopDownController.h>
+#include "../ai/normal_enemy.h"
 
 class game_state : public state
 {
@@ -20,6 +21,7 @@ private:
 
     Graphics::Render2D::TopDownController* controller;
 
+	std::vector<normal_enemy*> enemeys;
 public:
     void create();
     void destroy();

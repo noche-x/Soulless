@@ -43,14 +43,15 @@ void game_state::create() {
 	controller = new Graphics::Render2D::TopDownController(char_sprite, 16.0f);
     
     controller->addPhysicsTileMap(texture_tilemap);
+	controller->getAnimController()->setCharacterTickRateRelative(12);
+	controller->setPosition({ 220,220 });
 
 	Utilities::addActionKeyPair("walkUp", PSP_CTRL_UP);
 	Utilities::addActionKeyPair("walkDown", PSP_CTRL_DOWN);
 	Utilities::addActionKeyPair("walkLeft", PSP_CTRL_LEFT);
 	Utilities::addActionKeyPair("walkRight", PSP_CTRL_RIGHT);
 
-	controller->getAnimController()->setCharacterTickRateRelative(12);
-	controller->setPosition({ 220,220 });
+	enemeys.push_back(new normal_enemy({200, 100}, texture_tilemap, "assets/other_char.png"));
 
 	controller->registerHandlers();
 }
@@ -64,6 +65,15 @@ void game_state::destroy() {
 
 void game_state::render() {    
     texture_tilemap->drawMap();
+
+	for (auto enemy : enemeys) {
+		enemy->tick();
+		enemy->update();
+	}
+
+	for (auto enemy : enemeys) {
+		enemy->draw();
+	}
 
     controller->update(0.16);
     controller->draw();

@@ -99,4 +99,11 @@ void menu_system::set_key_set(key_set keys) {
     Stardust::Utilities::setActionKeyPair("menu_right", this->current_key_set.right_key);
     Stardust::Utilities::setActionKeyPair("menu_select", this->current_key_set.select_key);
     Stardust::Utilities::setActionKeyPair("menu_exit", this->current_key_set.exit_key);
+
+    Stardust::Utilities::addActionHandler("menu_up", this->menu_up);
+    Stardust::Utilities::addActionHandler("menu_down", this->menu_down);
+    Stardust::Utilities::addActionHandler("menu_left", this->menu_left);
+    Stardust::Utilities::addActionHandler("menu_right", this->menu_right);
+    Stardust::Utilities::addActionHandler("menu_select", this->menu_select);
+    Stardust::Utilities::addActionHandler("menu_exit", this->menu_exit);
 }

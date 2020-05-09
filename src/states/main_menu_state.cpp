@@ -6,20 +6,24 @@
 main_menu_state* main_menu_state_instance = new main_menu_state();
 
 bool m_change = false;
+bool m_alt = false;
 
 void play_button_click() {
     m_change = true;
 }
 
 void credits_button_click() {
-    
+    m_alt = true;
+    m_change = true;
 }
 
 void exit_button_click() {
-    
+    Platform::exitPlatform();
 }
 
 void main_menu_state::create() {
+    g_menu_system.set_default_key_set();
+    
     non_selected_button_texture = Graphics::TextureUtil::LoadPng("assets/selected.png");
     selected_button_texture = Graphics::TextureUtil::LoadPng("assets/non-selected.png");
     ghost_texture = Graphics::TextureUtil::LoadPng("assets/ghost.png");
@@ -80,9 +84,15 @@ void main_menu_state::render() {
 	if (ghost_sprite == NULL || logo_sprite == NULL)
         return;
 
-    if (m_change)
+    if (m_change && !m_alt) {
         g_state_manager.switch_to_next_state();
-
+        return;
+    }
+    else if (m_change && m_alt) {
+        g_state_manager.switch_to_next_alt_state();
+        return;
+    }
+        
 	logo_sprite->position(240, 43);
     logo_sprite->scale(1, 1);
     logo_sprite->setColor(0, 0, 0, 255);
